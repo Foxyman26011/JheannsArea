@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jheann's Area</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="header">🎀 Jheann's Area 🎀</div>
+  <div class="gallery" id="gallery"></div>
+
+  <div class="editor" id="editor" style="display: none;">
+    <h2>Add Image</h2>
+    <input type="text" id="imageUrl" placeholder="Image URL" />
+    <input type="text" id="imageText" placeholder="Image Description" />
+    <button onclick="addImage()">Add</button>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const isEditor = params.get("edit") === "true";
+
+    const gallery = document.getElementById("gallery");
+    const editor = document.getElementById("editor");
+
+    if (isEditor) {
+      editor.style.display = "block";
+    }
+
+    function addImage() {
+      const url = document.getElementById("imageUrl").value;
+      const text = document.getElementById("imageText").value;
+      if (url && text) {
+        const box = document.createElement("div");
+        box.className = "image-box";
+        box.innerHTML = `<div class="text">${text}</div><img src="${url}" alt="Image" />`;
+        gallery.appendChild(box);
+        document.getElementById("imageUrl").value = "";
+        document.getElementById("imageText").value = "";
+      }
+    }
+  </script>
+</body>
+</html>
